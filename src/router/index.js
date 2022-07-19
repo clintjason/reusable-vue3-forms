@@ -1,7 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import SimpleForm from "@/views/SimpleForm";
 
 const routes = [
+  {
+    path: "/",
+    name: "Form",
+    component: SimpleForm,
+  },
   {
     path: "/",
     name: "home",

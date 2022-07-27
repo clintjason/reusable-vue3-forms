@@ -2,7 +2,9 @@
   <label :for="uuid" v-if="label">{{ label }}</label>
   <select
     :value="modelValue"
-    class="field"
+    :class="error ? 'inputError field' : field"
+    :aria-describedby="error ? `${uuid}-error` : null"
+    :aria-invalid="error ? true : false"
     :id="uuid"
     v-bind="{
       ...$attrs,
@@ -20,9 +22,13 @@
       {{ option }}
     </option>
   </select>
+  <BaseErrorMessage v-if="error" :id="`${uuid}-error`">
+    {{ error }}
+  </BaseErrorMessage>
 </template>
 <script>
 import UniqueID from "@/features/UniqueID";
+import BaseErrorMessage from "@/components/BaseErrorMessage.vue";
 
 export default {
   props: {
@@ -39,6 +45,9 @@ export default {
       required: true,
     },
   },
+  components: {
+    BaseErrorMessage,
+  },
   data() {
     return {
       uuid: null,
@@ -50,3 +59,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+.errorMessage {
+  color: red;
+}
+.inputError {
+  border-color: red;
+  outline-color: orange;
+}
+</style>

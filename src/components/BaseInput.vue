@@ -10,18 +10,14 @@
     :aria-describedby="error ? `${uuid}-error` : null"
     :aria-invalid="error ? true : null"
   />
-  <p
-    v-if="error"
-    class="errorMessage"
-    :id="`${uuid}-error`"
-    aria-live="assertive"
-  >
+  <BaseErrorMessage v-if="error" :id="`${uuid}-error`">
     {{ error }}
-  </p>
+  </BaseErrorMessage>
 </template>
 
 <script>
 import UniqueID from "@/features/UniqueID";
+import BaseErrorMessage from "@/components/BaseErrorMessage.vue";
 
 export default {
   props: {
@@ -37,6 +33,9 @@ export default {
       type: String,
       default: "",
     },
+  },
+  components: {
+    BaseErrorMessage,
   },
   data() {
     return {

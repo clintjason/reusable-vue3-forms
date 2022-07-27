@@ -1,9 +1,5 @@
 <template>
-  <p
-    aria-live="assertive"
-    class="errorMessage"
-    :id="id"
-  >
+  <p aria-live="assertive" class="errorMessage" :id="id">
     <slot />
   </p>
 </template>
@@ -13,8 +9,8 @@ export default {
   props: {
     id: {
       type: [String, Number],
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>

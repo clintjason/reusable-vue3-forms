@@ -1,11 +1,18 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <BaseInput label="Email" type="email" v-model="email" :error="emailError" />
+    <BaseInput
+      label="Email"
+      type="email"
+      :modelValue="email"
+      @change="handleChange"
+      :error="emailError"
+    />
 
     <BaseInput
       label="Password"
       type="password"
-      v-model="password"
+      :modelValue="password"
+      @change="handleChange"
       :error="passwordError"
     />
 
@@ -44,19 +51,25 @@ export default {
         return true;
       },
     };
-    useForm({
+    const { setFieldValue } = useForm({
       validationSchema: validations,
     });
     const { value: email, errorMessage: emailError } = useField("email");
     const { value: password, errorMessage: passwordError } =
       useField("password");
 
+    const handleChange = (event) => {
+      //setfieldvalue trigger validation only for modified fields
+      setFieldValue("email", event.target.value);
+      setFieldValue("password", event.target.value);
+    };
     return {
       onSubmit,
       email,
       emailError,
       password,
       passwordError,
+      handleChange,
     };
   },
 };
